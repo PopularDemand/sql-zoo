@@ -90,3 +90,43 @@ SELECT DISTINCT player
   FROM game JOIN goal ON matchid = id
     WHERE (team1='GER' OR team2='GER') AND (goal.teamid != "GER")
 ----------------------------
+
+9
+SELECT teamname, COUNT(player)
+  FROM eteam JOIN goal ON id=teamid
+  GROUP BY teamname
+  ORDER BY teamname
+
+----------------------------
+10
+
+SELECT stadium, COUNT(stadium)
+  FROM goal JOIN game ON matchid = game.id
+  GROUP BY stadium
+
+----------------------------
+11
+
+SELECT matchid, mdate, COUNT(*)
+  FROM game JOIN goal ON matchid = id 
+ WHERE (team1 = 'POL' OR team2 = 'POL')
+GROUP BY matchid, mdate
+
+----------------------------
+12
+
+SELECT matchid, mdate, COUNT(gtime)
+FROM game JOIN goal ON game.id = matchid
+WHERE teamid = 'ger'
+GROUP BY matchid, mdate
+
+----------------------------
+13
+
+SELECT mdate,
+  team1,
+  SUM(CASE WHEN teamid=team1 THEN 1 ELSE 0 END) score1,
+  team2,
+  SUM(CASE WHEN teamid=team2 THEN 1 ELSE 0 END) score2
+  FROM goal RIGHT JOIN game ON matchid = id
+  GROUP BY mdate, matchid, team1, team2
