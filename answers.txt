@@ -95,7 +95,7 @@ WHERE continent = 'South America'
 
 ----------------------------
 
-10. 
+10.
 
 SELECT name, ROUND(gdp / population, -3) FROM world
 WHERE gdp > 1000000000000
@@ -126,16 +126,137 @@ WHERE name LIKE 'A%' OR name LIKE 'B%'
 
 13. #TODO
 
-SELECT name, CASE
+SELECT name, continent, CASE
 WHEN continent = 'Oceania' THEN 'Australasia'
 WHEN continent = 'Eurasia' OR name = 'Turkey' THEN 'Europe/Asia'
 WHEN name LIKE 'B%' AND continent = 'Caribbean' THEN 'North America'
 WHEN continent = 'Caribbean' THEN 'South America'
 ELSE continent
-END AS continent, tld
-  FROM world
+END AS continent  FROM world
 WHERE tld IN ('.ag','.ba','.bb','.ca','.cn','.nz','.ru','.tr','.uk')
 ORDER BY name ASC
 
 ----------------------------
 ----------------------------
+
+
+http://sqlzoo.net/wiki/SELECT_from_Nobel_Tutorial
+
+----------------------------
+1.
+
+SELECT yr, subject, winner
+  FROM nobel
+ WHERE yr = 1950
+
+----------------------------
+
+2.
+
+SELECT winner
+  FROM nobel
+ WHERE yr = 1962
+   AND subject = 'Literature'
+
+
+----------------------------
+
+3.
+
+SELECT yr, subject
+FROM nobel
+WHERE winner = 'Albert Einstein'
+
+
+----------------------------
+4.
+
+SELECT winner
+FROM nobel
+WHERE yr >= 2000 AND subject = 'peace'
+
+----------------------------
+
+5.
+
+SELECT yr, subject, winner
+FROM nobel
+WHERE subject = 'literature' AND yr BETWEEN 1980 AND 1989
+
+
+----------------------------
+6.
+
+SELECT * FROM nobel
+ WHERE winner IN ('Theodore Roosevelt',
+                  'Woodrow Wilson',
+                  'Jimmy Carter')
+
+----------------------------
+
+7.
+
+SELECT winner FROM nobel
+ WHERE winner LIKE 'John%'
+
+
+----------------------------
+
+8.
+
+SELECT yr, subject, winner FROM nobel
+ WHERE (yr = 1980 AND subject = 'Physics') OR (yr = 1984 AND subject = 'Chemistry')
+
+
+----------------------------
+9.
+
+SELECT yr, subject, winner FROM nobel
+WHERE subject NOT IN ('Chemistry', 'Medicine') AND yr = 1980
+
+----------------------------
+
+10.
+
+SELECT yr, subject, winner FROM nobel
+ WHERE (yr < 1910 AND subject = 'Medicine') OR (yr >= 2004 AND subject = 'Literature')
+
+
+----------------------------
+
+11.
+
+SELECT yr, subject, winner FROM nobel
+WHERE winner = 'PETER GRÜNBERG'
+
+
+----------------------------
+
+12.
+
+SELECT yr, subject, winner FROM nobel
+WHERE winner = 'EUGENE O\'NEILL'
+
+
+
+----------------------------
+
+13.
+
+SELECT winner, yr, subject  FROM nobel
+WHERE winner LIKE 'Sir%'
+
+ORDER BY yr DESC, winner
+
+----------------------------
+
+14.
+
+SELECT winner, subject
+  FROM nobel
+ WHERE yr=1984
+ ORDER BY subject IN ('Physics','Chemistry'), subject, winner
+
+----------------------------
+
+
