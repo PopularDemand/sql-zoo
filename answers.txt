@@ -74,7 +74,68 @@ WHERE name LIKE '%United%'
 
 7.
 
+SELECT name, population, area FROM world
+WHERE population > 250000000
+OR    area > 3000000
 
 ----------------------------
+
+8.
+
+SELECT name, population, area FROM world
+WHERE population > 250000000
+XOR    area > 3000000
+
+----------------------------
+
+9.
+
+SELECT name, ROUND(population / 1000000, 2), ROUND(gdp / 1000000000, 2) FROM world
+WHERE continent = 'South America'
+
+----------------------------
+
+10. 
+
+SELECT name, ROUND(gdp / population, -3) FROM world
+WHERE gdp > 1000000000000
+
+----------------------------
+
+11.
+
+SELECT name,
+       CASE WHEN continent='Oceania' THEN 'Australasia'
+            ELSE continent END
+  FROM world
+ WHERE name LIKE 'N%'
+
+----------------------------
+
+12.
+
+SELECT name, CASE
+             WHEN continent IN ('Europe', 'Asia') THEN 'Eurasia'
+             WHEN continent IN ('North America', 'South America', 'Caribbean') THEN 'America'
+             ELSE continent
+             END AS continent
+FROM world
+WHERE name LIKE 'A%' OR name LIKE 'B%'
+
+----------------------------
+
+13. #TODO
+
+SELECT name, CASE
+WHEN continent = 'Oceania' THEN 'Australasia'
+WHEN continent = 'Eurasia' OR name = 'Turkey' THEN 'Europe/Asia'
+WHEN name LIKE 'B%' AND continent = 'Caribbean' THEN 'North America'
+WHEN continent = 'Caribbean' THEN 'South America'
+ELSE continent
+END AS continent, tld
+  FROM world
+WHERE tld IN ('.ag','.ba','.bb','.ca','.cn','.nz','.ru','.tr','.uk')
+ORDER BY name ASC
+
 ----------------------------
 ----------------------------
